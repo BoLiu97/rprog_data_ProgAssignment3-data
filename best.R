@@ -5,8 +5,8 @@ best <- function(state, outcome) {
   ## rate
   outcome1 = read.csv("outcome-of-care-measures.csv", colClasses = "character")
   ##check if state is a true arg
-  if( state %in% outcome1$State) 
-    stop(print("invalid outcome"))
+  if( !state %in% outcome1$State) 
+    stop(print("invalid state"))
   ## also can write as data <- subset(outcome1, State == state)
   data = outcome1[outcome1$State==state,]
 
@@ -16,7 +16,6 @@ best <- function(state, outcome) {
   else if (outcome == "heart failure") {
     colnum <-17}
   else if(outcome=="pneumonia"){
-    
     colnum <- 23}
   else{ 
     stop(print("invalid outcome"))}
