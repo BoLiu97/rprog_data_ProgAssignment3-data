@@ -30,6 +30,7 @@ best <- function(state, outcome) {
   hos_smal <- data_without_na[locateat,2]
   
   ##using sort function here if hospital is more than 1
+  
   if(length(hos_smal)>1){
     sort(hos_smal)
     return(hos_smal[1])}

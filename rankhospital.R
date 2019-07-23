@@ -9,7 +9,12 @@ rankhospital <- function(state, outcome, num = "best") {
     stop(print("invalid state"))
   ## also can write as data <- subset(outcome1, State == state)
   data = outcome1[outcome1$State==state,]
-  num_hos <- length(data)
+  ##num_hos <- length(data)
+  if (is.numeric(num) == TRUE) {
+    if (length(data[,2]) < num) {
+      return(NA)
+    }
+  }
 
   ## check outcome location and true arg
   if (outcome == "heart attack") {
@@ -21,16 +26,16 @@ rankhospital <- function(state, outcome, num = "best") {
   else{ 
     stop(print("invalid outcome"))}
   ## delete NA value
-  disease_col <- as.numeric(data[, colnum])
-  NA_line <- is.na(disease_col)
+  data[,colnum] <- as.numeric(data[, colnum])
+  NA_line <- is.na(data[,colnum])
   data_without_na <- data[!NA_line,]
   
   ##find the value 
   column_name <- names(data_without_na)[colnum]
   hos_name <- names(data_without_na)[2]
   index <- with(data_without_na, order(data_without_na[column_name], data_without_na[hos_name]))
-  ##index2<- data_without_na[with(data_without_na,order(data_without_na[column_name],data_without_na[hos_name]))]
-  ordered_desired_data <- data_without_na[index2, ]
+  ordered_desired_data <- data_without_na[index, ]
+  locateat<- num
   if(is.character(num)==TRUE ){
     ##col_for_tar <- as.numeric(data_without_na[,colnum])
     if (num == "best") {
